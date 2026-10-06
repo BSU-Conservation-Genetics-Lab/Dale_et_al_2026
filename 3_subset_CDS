@@ -1,0 +1,34 @@
+# Subset PEFA Subspecies Calidus, Peregrinus, and Harterti VCF for CDS
+# Chromosome and Bounds for CDS - found using Geneious Prime and GTF annotation file
+
+# Run line by line in terminal, no sbatch
+
+# TLR1A - Single
+bcftools view -r NC_073722.1:27233553-27235955 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR1A_CDS.vcf.gz
+
+# TLR1B - Single 
+bcftools view -r NC_073722.1:27223173-27225128 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR1B_CDS.vcf.gz
+
+# TLR2A - Single
+bcftools view -r NC_073722.1:77661632-77664013 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR2A_CDS.vcf.gz
+
+# TLR2B - Single
+bcftools view -r NC_073722.1:77671031-77673382 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR2B_CDS.vcf.gz
+
+# TLR3 - Mutli (4)
+bcftools view -r NC_073722.1:19430736-19430964,NC_073722.1:19431625-19433450,NC_073722.1:19435064-19435255,NC_073722.1:19436668-19437111 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR3_CDS.vcf.gz
+  
+# TLR4 - Multi (3)
+bcftools view -r NC_073721.1:43155139-43157398,NC_073721.1:43158672-43158838,NC_073721.1:43159620-43159742 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR4_CDS.vcf.gz
+
+# TLR5 - Single
+bcftools view -r NC_073731.1:26659171-26661756 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR5_CDS.vcf.gz
+
+# TLR7 - Multi (2)
+bcftools view -r NC_073724.1:27527196-27527198,NC_073724.1:27533749-27536889 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR7_CDS.vcf.gz
+
+# TLR15 - Single
+bcftools view -r NC_073731.1:1547929-1550547 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR15_CDS.vcf.gz
+
+# TLR2X - Multi (4)
+bcftools view -r NC_073740.1:5331846-5331925,NC_073740.1:5332254-5332328,NC_073740.1:5333684-5334194,,NC_073740.1:5334196-5335908,NC_073740.1:5335910-5336209 Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o CPH-PEFA_TLR2X_CDS.vcf.gz
