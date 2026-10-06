@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Peregrine Falcon
+# Use Bowtie2 to align sequences to reference genome
+# Build Bowtie 2 index (this should be done once, not inside the loop)
+
+bowtie2-build ${genome}/GCF_023634155.1_bFalPer1.pri_genomic_SEQUENTIAL.fna ${genome}/GCF_023634155.1_bFalPer1.pri_genomic_SEQUENTIAL.fna
+
+# Loop through all pairs of files ending with val_1.fq.gz in the "Trimmed_Reads" folder
+
+for val1 in ${genome}/Trimmed_Reads/*_val_1.fq.gz; do
+    # Derive the base filename (remove _val_1.fq.gz)
+    base_name=$(basename ${val1} "_val_1.fq.gz")
+    
+    # Define the corresponding _val_2.fq.gz file
+    
+    val2="${genome}/Trimmed_Reads/${base_name}_val_2.fq.gz"
+    
+    # Check if both val_1 and val_2 files exist
+    
+    if [ -f "${val1}" ] && [ -f "${val2}" ]; then
+        # Create the BAM output file path
+        bam_output="${output_dir}/${base_name}.bam"
+        
+        # Run Bowtie2 alignment and convert to BAM with samtools
+        
+        bowtie2 -p 32 -x ${genome}/GCF_023634155.1_bFalPer1.pri_genomic_SEQUENTIAL.fna -1 ${val1} -2 ${val2} -X 600 -I 0 | samtools view -@ 4 -bS - > ${bam_output}
+        
+        echo "Processed ${base_name}, output BAM: ${bam_output}"
+    else
+        echo "Missing pair for ${base_name}, skipping..."
+    fi
+done
