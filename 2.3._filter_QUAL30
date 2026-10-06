@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Calidus, Peregrinus, Harterti PEFA Subset
+# Filter for quality (Phred) of 30
+
+vcftools --gzvcf Cali-Per_Hart_PEFA_DP5_MaxMis0.1.vcf.gz \
+    --minQ 30 \
+    --recode --recode-INFO-all \
+    --stdout | bgzip > Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz
+    
+bcftools index Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz
