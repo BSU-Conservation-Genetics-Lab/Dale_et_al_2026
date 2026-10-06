@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Calidus, Peregrinus, Harterti PEFA Subset
+# Filter for max missingness of 0.9
+
+# Sites with missingness GREATER than 0.1 were removed
+# Specifies the minimum fraction of individuals that must have data (so in this case at least 0.9 must have genotypes)
+
+vcftools --gzvcf Cali-Per_Hart_PEFA_DP5.vcf.gz \
+         --max-missing 0.9 \
+         --recode --recode-INFO-all \
+         --stdout | bgzip > Cali-Per_Hart_PEFA_DP5_MaxMis0.1.vcf.gz
+    
+bcftools index Cali-Per_Hart_PEFA_DP5_MaxMis0.1.vcf.gz
