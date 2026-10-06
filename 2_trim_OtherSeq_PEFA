@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Peregrine Falcon ONLY
+# TRIMMING FOR OTHERSEQ (NO NEXTERA ADAPTER, --quality 30)
+# without nextera, it will search for all adapters
+# --quality 30 will trim ends by quality of at least 30
+
+
+# Trim files with TrimGalore v. 0.6.6 before alignment - change parameters based on results
+for file in "${rawdata}"*_1.fastq.gz
+do
+       base=$(basename ${file} _1.fastq.gz)
+       ~/miniforge3/bin/trim_galore --path_to_cutadapt ~/miniforge3/bin/cutadapt --paired --quality 30 ${file} ${rawdata}${base}_2.fastq.gz -o ${datadir} --basename ${base}
+done
+wait
+echo "done trimming"
