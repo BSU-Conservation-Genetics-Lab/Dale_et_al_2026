@@ -1,0 +1,5 @@
+#!/bin/bash
+# Peregrine Falcon
+# FastQC run again on trimmed sequences (NovaSeq and OtherSeq)
+
+fastqc *.fq.gz
