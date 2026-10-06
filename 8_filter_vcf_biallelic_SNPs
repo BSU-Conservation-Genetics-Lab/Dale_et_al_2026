@@ -1,0 +1,6 @@
+#!/bin/bash
+# Filter VCF for biallelic SNPs only
+
+bcftools view -m2 -M2 -v snps Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30_Biallelic.vcf.gz 
+
+bcftools index Cali-Per_Hart_PEFA_DP5_MaxMis0.1_Qual30_Biallelic.vcf.gz
