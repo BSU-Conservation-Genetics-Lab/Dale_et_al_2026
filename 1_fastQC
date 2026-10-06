@@ -1,0 +1,5 @@
+#!/bin/bash
+# FastQC used for Gyrfalcon and Peregrine Falcon reference and resequenced genomes
+
+# * = run fastQC on all files in folder
+fastqc *.fastq.gz
