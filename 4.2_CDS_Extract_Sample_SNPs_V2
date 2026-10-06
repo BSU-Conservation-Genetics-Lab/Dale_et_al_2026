@@ -1,0 +1,53 @@
+#!/bin/bash
+# Calculate the number of SNPs for each sample (i.e., has a variant genotype)
+# Version 2
+
+module load bcftools/1.14
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/CDS
+
+# Loop through all .vcf.gz files in the current directory
+for VCF in *.vcf.gz
+do
+    # Skip if not a regular file
+    [ -f "$VCF" ] || continue
+
+    echo "Processing $VCF..."
+
+    # Output CSV filename (replace .vcf.gz with .snp_counts.csv)
+    OUTPUT="${VCF%.vcf.gz}.snp_counts.csv"
+
+    # Check for index file (.tbi or .csi)
+    if [ ! -f "${VCF}.tbi" ] && [ ! -f "${VCF}.csi" ]; then
+        echo "  Indexing $VCF..."
+        bcftools index "$VCF"
+    fi
+
+    # Extract sample names
+    samples=($(bcftools query -l "$VCF"))
+
+    # Temporary file for biallelic SNPs
+    TMP_VCF="tmp_biallelic_snps.vcf.gz"
+
+    # Filter for biallelic SNPs only
+    bcftools view -m2 -M2 -v snps "$VCF" -Oz -o "$TMP_VCF"
+    bcftools index "$TMP_VCF"
+
+    # Write CSV header
+    echo "Sample,Num_Biallelic_SNPs" > "$OUTPUT"
+
+    # Loop through each sample
+    for sample in "${samples[@]}"
+    do
+        count=$(bcftools query -s "$sample" -f '[%GT\n]' "$TMP_VCF" | \
+                awk '($1 != "./." && $1 != "0/0" && $1 != "0|0") {count++} END {print count+0}')
+        echo "${sample},${count}" >> "$OUTPUT"
+    done
+
+    # Clean up temporary files
+    rm "$TMP_VCF" "$TMP_VCF".csi 2>/dev/null || rm "$TMP_VCF".tbi 2>/dev/null
+
+    echo "  Output written to $OUTPUT"
+done
+
+echo "All VCFs processed."
