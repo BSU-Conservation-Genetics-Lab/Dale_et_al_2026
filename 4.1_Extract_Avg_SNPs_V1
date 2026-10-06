@@ -1,0 +1,57 @@
+#!/bin/bash
+# Calculate SNPs for each sample and calculate the average number of SNPs by gene
+# Version 1
+
+module load bcftools/1.14
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/CDS
+
+# Output CSVs
+individual_csv="CDS_individual_snp_counts_090326.csv"
+average_csv="CDS_average_snp_counts_090326.csv"
+
+# Write headers
+echo "File,Sample,SNP_Count" > "$individual_csv"
+echo "File,Average_SNPs_Per_Genome" > "$average_csv"
+
+# Loop through all compressed VCF files
+for vcf in *.vcf.gz; do
+    echo "Processing $vcf"
+    base=$(basename "$vcf" .vcf.gz)
+
+    # Get the list of sample names
+    mapfile -t samples < <(bcftools query -l "$vcf")
+
+    # Join sample names into a space-separated string
+    sample_string=$(IFS=" "; echo "${samples[*]}")
+
+    # Extract SNPs and genotype info and count per-sample SNPs
+    bcftools view -v snps -m2 -M2 "$vcf" | \
+    bcftools query -f '%CHROM\t%POS[\t%GT]\n' | \
+    awk -v file="$base" -v indiv="$individual_csv" -v avgout="$average_csv" -v sample_string="$sample_string" '
+    BEGIN {
+        split(sample_string, samples, " ");
+        nsamples = length(samples);
+        for (i = 1; i <= nsamples; i++) {
+            count[samples[i]] = 0;
+        }
+    }
+    {
+        for (i = 1; i <= nsamples; i++) {
+            gt = $(i + 2);
+            if (gt != "0/0" && gt != "0|0" && gt != "./." && gt != "." && gt != ".|.") {
+                count[samples[i]]++;
+            }
+        }
+    }
+    END {
+        total = 0;
+        for (i = 1; i <= nsamples; i++) {
+            sample = samples[i];
+            print file "," sample "," count[sample] >> indiv;
+            total += count[sample];
+        }
+        avg = (nsamples > 0) ? total / nsamples : 0;
+        print file "," avg >> avgout;
+    }'
+done
