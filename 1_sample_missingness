@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Calidus, Peregrinus, Harterti PEFA Subset
+# Calculate sample missingness
+
+# Samples with F_Missingness > 0.1 will be removed.
+# Output file =  Cali-Per_Hart_PEFA_sample_missing
+
+vcftools --gzvcf Cali-Per_Hart_PEFA_Subsp.vcf.gz --missing-indv --out Cali-Per_Hart_PEFA_sample_missing
+
