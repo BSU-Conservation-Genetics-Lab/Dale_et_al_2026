@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Peregrine Falcon
+# Generate sorted BAM files, use mpileup to assemble aligned reads, generate variant only VCF
+
+# Loop over all BAM files and index them
+for sample in *_sorted.bam; do
+  echo "Indexing $sample..."
+  samtools index -b "$sample"
+done
+
+### Indexed mpileup
+# -f = reference genome
+# -a = annotations to extract (allelic depth, strand bias, etc.)
+# -o = output BCF file
+# After the options, list all your BAM files to be included.
+
+bcftools mpileup -E -O b \
+  -f /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/GCF_023634155.1_bFalPer1.pri_genomic_SEQUENTIAL.fna \
+  -a AD,ADF,DP,ADR,SP \
+  -o /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/BAM/Sorted_BAM/BCFs/PEFA_Subsp_Indexed.bcf \
+  /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/BAM/Sorted_BAM/*_sorted.bam
+
+# Index BCF for downstream compatibility
+bcftools index /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/BAM/Sorted_BAM/BCFs/PEFA_Subsp_Indexed.bcf
+
+### Call Variants
+# BCFtools call isn't filtering for anything yet, PEFA_Subsp.vcf is VCF with everything
+bcftools call /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/BAM/Sorted_BAM/BCFs/PEFA_Subsp_Indexed.bcf -mv -O v -o /bsuhome/sagedale/scratch/Peregrine/Genomes/Trimmed_Reads/Combined/BAM/Sorted_BAM/VCFs/PEFA_Subsp.vcf
