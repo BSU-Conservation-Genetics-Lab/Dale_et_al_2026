@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Calidus, Peregrinus, Harterti PEFA Subset
+# Filter for DP > 5
+
+vcftools --gzvcf Cali-Per_Hart_PEFA_Subsp.vcf.gz \
+    --minDP 5 \
+    --recode --recode-INFO-all \
+    --stdout | bgzip > Cali-Per_Hart_PEFA_DP5.vcf.gz
+    
+bcftools index Cali-Per_Hart_PEFA_DP5.vcf.gz
+
