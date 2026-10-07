@@ -1,0 +1,27 @@
+#!/bin/bash
+# Extract the CDS region from TLR2X from whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/2_Phased_VCF_Genomes
+
+for genome in *_TLR2X_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR2X from $sample"
+
+    {
+        echo ">${sample}_TLR2X"
+
+        samtools faidx "$genome" \
+           NC_073740.1:5331846-5331925 \
+           NC_073740.1:5332254-5332328 \
+           NC_073740.1:5333684-5334194 \
+           NC_073740.1:5334196-5335908 \
+           NC_073740.1:5335910-5336209 \
+        | awk '!/^>/'
+
+   }  > "${sample}_CDS.fa"
+
+done
