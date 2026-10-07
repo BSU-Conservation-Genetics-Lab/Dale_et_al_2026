@@ -1,0 +1,25 @@
+#!/bin/bash
+# Phase biallelic TLR sequences 
+
+module load bcftools/1.14
+
+# Define input and output directories
+INPUT_DIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/1_Unphased_VCFs"
+OUTPUT_DIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/2_Phased_VCF_Genomes"
+
+# Change to input directory (optional, but keeps path references simple)
+cd "$INPUT_DIR"
+
+genes=("TLR1A" "TLR1B" "TLR2A" "TLR2B" "TLR3" "TLR4" "TLR5" "TLR7" "TLR15" "TLR2X")
+
+# Run phasing in BEAGLE
+for gene in "${genes[@]}"; do
+    java -jar beagle.jar \
+        gt="${INPUT_DIR}/CPH_Bi_${gene}_CDS.vcf.gz" \
+        out="${OUTPUT_DIR}/CPH_Bi_${gene}_CDS.phased"
+done
+
+# Index phased VCFs with BCFtools
+for gene in "${genes[@]}"; do
+    bcftools index "${OUTPUT_DIR}/CPH_Bi_${gene}_CDS.phased.vcf.gz"
+done
