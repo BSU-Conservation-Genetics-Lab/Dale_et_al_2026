@@ -1,0 +1,34 @@
+#!/bin/bash
+# Make whole genome haplotype sequence where LRR TLR5 phased variants are applied 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR5_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR5 from $sample"
+
+    {
+        echo ">${sample}_TLR5"
+
+        samtools faidx "$genome" \
+           NC_073731.1:26661388-26661453 \
+           NC_073731.1:26661241-26661303 \
+           NC_073731.1:26661163-26661228 \
+           NC_073731.1:26660809-26660874 \
+           NC_073731.1:26660737-26660802 \
+           NC_073731.1:26660665-26660730 \
+           NC_073731.1:26660593-26660658 \
+           NC_073731.1:26660521-26660586 \
+           NC_073731.1:26660404-26660469 \
+           NC_073731.1:26660167-26660232 \
+           NC_073731.1:26660095-26660160 \
+           NC_073731.1:26660029-26660094 \
+        | awk '!/^>/'
+
+   } | seqtk seq -r - > "${sample}_LRR.fa"
+
+done
