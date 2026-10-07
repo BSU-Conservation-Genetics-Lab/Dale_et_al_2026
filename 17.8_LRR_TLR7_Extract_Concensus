@@ -1,5 +1,5 @@
 #!/bin/bash
-# Make whole genome haplotype sequence where LRR TLR7 phased variants are applied 
+# Extract the LRR region from TLR7 whole genome haplotype 
 
 export PATH=~/miniforge3/bin:$PATH
 
