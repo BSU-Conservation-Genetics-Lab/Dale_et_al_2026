@@ -1,0 +1,25 @@
+#!/bin/bash
+# Extract the CDS region from TLR4 from whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/2_Phased_VCF_Genomes
+
+for genome in *_TLR4_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR4 from $sample"
+
+    {
+        echo ">${sample}_TLR4"
+
+        samtools faidx "$genome" \
+           NC_073721.1:43155139-43157398 \
+           NC_073721.1:43158672-43158838 \
+           NC_073721.1:43159620-43159742 \
+        | awk '!/^>/'
+
+   } | seqtk seq -r - > "${sample}_CDS.fa"
+
+done
