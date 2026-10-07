@@ -1,5 +1,5 @@
 #!/bin/bash
-# Make whole genome haplotype sequence where LRR TLR2X phased variants are applied 
+# Extract the LRR region from TLR2X whole genome haplotype 
 
 export PATH=~/miniforge3/bin:$PATH
 
