@@ -1,0 +1,29 @@
+#!/bin/bash
+# Create multi-sequence CDS FASTA with all TLR consensus haplotypes
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/2_Phased_VCF_Genomes
+
+# List of gene identifiers used in filenames
+genes=("TLR1A" "TLR1B" "TLR2A" "TLR2B" "TLR3" "TLR4" "TLR5" "TLR7" "TLR15" "TLR2X")
+
+for gene in "${genes[@]}"; do
+    multifasta="${gene}_CDS_all_samples.fa"
+    echo "Creating multi-FASTA: $multifasta"
+    > "$multifasta"  # Clear or create the output file
+
+    # Match both haplotypes for the gene
+    for fasta in *_${gene}_hap*_CDS.fa; do
+        if [[ -f "$fasta" ]]; then
+            echo "  Adding $fasta"
+
+            # Extract sample and haplotype from filename (e.g., Sample1_TLR1A_hap1.fa)
+            sample_name=$(basename "$fasta" .fa)
+
+            # Replace header with informative name (e.g., >Sample1_TLR1A_hap1)
+            awk -v name="$sample_name" '
+                /^>/ {print ">"name}
+                !/^>/ {print}
+            ' "$fasta" >> "$multifasta"
+        fi
+    done
+done
