@@ -1,0 +1,31 @@
+#!/bin/bash
+# Extract the LRR region from TLR2A whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR2A_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR2A from $sample"
+
+    {
+        echo ">${sample}_TLR2A"
+
+        samtools faidx "$genome" \
+            NC_073722.1:77661821-77661886 \
+            NC_073722.1:77661893-77661958 \
+            NC_073722.1:77661965-77662030 \
+            NC_073722.1:77662037-77662102 \
+            NC_073722.1:77662820-77662885 \
+            NC_073722.1:77662898-77662963 \
+            NC_073722.1:77662967-77663032 \
+            NC_073722.1:77663033-77663089 \
+            NC_073722.1:77663090-77663155 \
+        | awk '!/^>/'
+
+   } > "${sample}_LRR.fa"
+
+done
