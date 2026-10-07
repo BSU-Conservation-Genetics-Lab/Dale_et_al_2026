@@ -1,0 +1,23 @@
+#!/bin/bash
+# Extract the CDS region from TLR1B from whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/CDS/2_Phased_VCF_Genomes
+
+for genome in *_TLR1B_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR1B from $sample"
+
+    {
+        echo ">${sample}_TLR1B"
+
+        samtools faidx "$genome" \
+            NC_073722.1:27223173-27225128 \
+        | awk '!/^>/'
+
+   } > "${sample}_CDS.fa"
+
+done
