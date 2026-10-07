@@ -1,0 +1,34 @@
+#!/bin/bash
+# Make whole genome haplotype sequence where LRR TLR2X phased variants are applied 
+
+module load bcftools/1.14
+
+export PATH=~/miniforge3/bin:$PATH
+
+REF="/bsuhome/sagedale/scratch/Peregrine/Ref_Genome/PacBio_8_Feb25-fail/GCF_023634155.1_bFalPer1.pri_genomic_SEQUENTIAL.fna"
+
+VCFDIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/LRR/2_Phased_VCF_Genomes"
+
+cd "$VCFDIR"
+
+GENE="TLR2X"
+
+for sample in $(bcftools query -l CPH_Bi_PEFA_${GENE}_LRR.phased.vcf.gz); do
+
+    echo "Processing $sample"
+
+    bcftools consensus \
+        -f "$REF" \
+        -s "$sample" \
+        -H 1pIu \
+        CPH_Bi_PEFA_${GENE}_LRR.phased.vcf.gz \
+        > "${sample}_${GENE}_hap1_genome.fa"
+
+    bcftools consensus \
+        -f "$REF" \
+        -s "$sample" \
+        -H 2pIu \
+        CPH_Bi_PEFA_${GENE}_LRR.phased.vcf.gz \
+        > "${sample}_${GENE}_hap2_genome.fa"
+
+done
