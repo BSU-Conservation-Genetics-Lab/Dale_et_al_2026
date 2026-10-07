@@ -1,0 +1,43 @@
+#!/bin/bash
+# Make whole genome haplotype sequence where LRR TLR3 phased variants are applied 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Cali_Per_Hart_PEFA/DNAsp_CPH_28/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR3_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR3 from $sample"
+
+    {
+        echo ">${sample}_TLR3"
+
+        samtools faidx "$genome" \
+           NC_073722.1:19436887-19436952 \
+           NC_073722.1:19436815-19436880 \
+           NC_073722.1:19436743-19436808 \
+           NC_073722.1:19436668-19436736 \
+           NC_073722.1:19435193-19435255 \
+           NC_073722.1:19435118-19435183 \
+           NC_073722.1:19435064-19435105 \
+           NC_073722.1:19433427-19433450 \
+           NC_073722.1:19433274-19433339 \
+           NC_073722.1:19433196-19433261 \
+           NC_073722.1:19433127-19433189 \
+           NC_073722.1:19433055-19433120 \
+           NC_073722.1:19432983-19433048 \
+           NC_073722.1:19432914-19432976 \
+           NC_073722.1:19432827-19432892 \
+           NC_073722.1:19432752-19432820 \
+           NC_073722.1:19432530-19432595 \
+           NC_073722.1:19432458-19432523 \
+           NC_073722.1:19432362-19432427 \
+           NC_073722.1:19432290-19432355 \
+           NC_073722.1:19432218-19432283 \
+        | awk '!/^>/'
+
+   } | seqtk seq -r - > "${sample}_LRR.fa"
+
+done
