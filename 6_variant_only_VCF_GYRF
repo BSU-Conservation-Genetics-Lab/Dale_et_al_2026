@@ -1,0 +1,6 @@
+#!/bin/bash
+# Generate **Variant ONLY** VCF 
+# Input is a bcf (generating by combining Hu et al. 2022 and Liu et al. 2026 .bam files)
+
+### Call variants with multiallelic model, ** includes multiallelic variant sites only **
+bcftools call /bsuhome/sagedale/scratch/Manuscript_Prep/Hu-Liu_GYRF/BCFs/GYR_Hu-Liu.bcf -mv -O v -o /bsuhome/sagedale/scratch/Manuscript_Prep/Hu-Liu_GYRF/VCFs/GYR_Hu-Liu-VarONLY.vcf
