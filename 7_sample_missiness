@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Gyrfalcon (n = 28)
+# Calculate sample missingness
+
+# Samples with F_Missingness > 0.1 will be removed.
+# Output file =  HuLiu-gyr_sample_missing
+
+vcftools --gzvcf GYRF_HuLiu_RENAMED_VarOnly.vcf.gz --missing-indv --out HuLiu-gyr_sample_missing
