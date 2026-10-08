@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Gyrfalcon (n = 28)
+# Filter depth (DP) > 5
+
+# vcftools --gzvcf GYRF_HuLiu_RENAMED_VarOnly.vcf.gz \
+    --minDP 5 \
+    --recode --recode-INFO-all \
+    --stdout | bgzip > GYRF_HuLiu_RENAMED_VarOnly_DP5.vcf.gz
+    
+bcftools index GYRF_HuLiu_RENAMED_VarOnly_DP5.vcf.gz
