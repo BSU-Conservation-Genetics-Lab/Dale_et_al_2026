@@ -1,0 +1,18 @@
+#!/bin/bash
+# Trimming (trimgalore) Hu et al. 2026 Gyrfalcon genomes
+
+rawdata=/bsuhome/sgalla/scratch/Gyrfalcon/Resequenced_Genomes/raw_reads/
+datadir=/bsuhome/sgalla/scratch/Gyrfalcon/Resequenced_Genomes/trimmed_reads/
+
+# Trimming for OtherSeq (NO NEXTERA, --quality 30)
+# without nextera, it will search for all adapters
+# --quality 30 will trim ends by quality of at least 30
+
+# Trim files with TrimGalore v. 0.6.6 before alignment - change parameters based on results
+for file in "${rawdata}"*_f1.fq.gz
+do
+       base=$(basename ${file} _f1.fq.gz)
+       ~/anaconda3/bin/trim_galore --path_to_cutadapt ~/anaconda3/bin/cutadapt --paired --quality 30 ${file} ${rawdata}${base}_r2.fq.gz -o ${datadir} --basename ${base}
+done
+wait
+echo "done trimming"
