@@ -1,0 +1,35 @@
+#!/bin/bash
+# Phase biallelic TLR sequences 
+# CDS
+
+# Make whole genome haplotype sequence where TLR15 phased variants are applied 
+
+module load bcftools/1.14
+
+REF="/bsuhome/sagedale/scratch/Gyrfalcon/Full_Run_Feb25/GCF_015220075.1_bFalRus1.pri_genomic_SEQUENTIAL.fna"
+
+VCFDIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/CDS/2_Phased_VCF_Genomes"
+
+cd "$VCFDIR"
+
+GENE="TLR15"
+
+for sample in $(bcftools query -l GYRF_${GENE}_CDS.phased.vcf.gz); do
+
+    echo "Processing $sample"
+
+    bcftools consensus \
+        -f "$REF" \
+        -s "$sample" \
+        -H 1pIu \
+        GYRF_${GENE}_CDS.phased.vcf.gz \
+        > "${sample}_${GENE}_hap1_genome.fa"
+
+    bcftools consensus \
+        -f "$REF" \
+        -s "$sample" \
+        -H 2pIu \
+        GYRF_${GENE}_CDS.phased.vcf.gz \
+        > "${sample}_${GENE}_hap2_genome.fa"
+
+done
