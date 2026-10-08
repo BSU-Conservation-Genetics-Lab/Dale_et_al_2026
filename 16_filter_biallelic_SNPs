@@ -1,0 +1,6 @@
+# !/bin/bash
+# Filter VCF for biallelic SNPs only
+
+bcftools view -m2 -M2 -v snps GYRF_HuLiu_RENAMED_VarOnly_DP5_MaxMis0.1_Qual30.vcf.gz -Oz -o GYRF_VarOnly_Biallelic.vcf.gz 
+
+bcftools index GYRF_VarOnly_Biallelic.vcf.gz
