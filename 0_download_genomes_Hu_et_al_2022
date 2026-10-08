@@ -1,0 +1,52 @@
+#!/bin/bash
+# Gyrfalcon Hu et al. 2022 resequenced genome download from China National Center for Bioinformation
+
+cd /bsuhome/sagedale/scratch/Gyrfalcon/Russia
+
+#CRR575715 Whole genome sequencing for blood sample of gyrfalcon (Kola2) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575715/CRR575715_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575715/CRR575715_r2.fq.gz
+
+#CRX511100 Whole genome sequencing for blood sample of gyrfalcon (Kola3) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575716/CRR575716_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575716/CRR575716_r2.fq.gz
+
+#CRX511098 Whole genome sequencing for blood sample of gyrfalcon (Kola1) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575714/CRR575714_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575714/CRR575714_r2.fq.gz
+
+#CRX511105 Whole genome sequencing for blood sample of gyrfalcon (Chukotka2) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575721/CRR575721_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575721/CRR575721_r2.fq.gz
+
+#CRX511106 Whole genome sequencing for blood sample of gyrfalcon (Chukotka3) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575722/CRR575722_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575722/CRR575722_r2.fq.gz
+
+#CRX511106 Whole genome sequencing for blood sample of gyrfalcon (Chukotka3) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_r2.fq.gz
+
+#CRX511107 Whole genome sequencing for blood sample of gyrfalcon (Chukotka4) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_r2.fq.gz
+
+#CRX511101 Whole genome sequencing for blood sample of gyrfalcon (Yamal1) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575717/CRR575717_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575717/CRR575717_r2.fq.gz
+
+#CRX511102 Whole genome sequencing for blood sample of gyrfalcon (Yamal2) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575718/CRR575718_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575718/CRR575718_r2.fq.gz
+
+#CRX511103 Whole genome sequencing for blood sample of gyrfalcon (Yamal3) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575719/CRR575719_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575719/CRR575719_r2.fq.gz
+
+#CRX511104 Whole genome sequencing for blood sample of gyrfalcon (Chukotka1) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575720/CRR575720_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575720/CRR575720_r2.fq.gz
+
+#CRX511107 Whole genome sequencing for blood sample of gyrfalcon (Chukotka4) collected from Russia
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_f1.fq.gz
+wget https://download.cncb.ac.cn/gsa2/CRA008383/CRR575723/CRR575723_r2.fq.gz
