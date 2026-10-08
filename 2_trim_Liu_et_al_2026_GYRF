@@ -1,0 +1,16 @@
+#!/bin/bash
+# Trimming (trimgalore) Liu et al. 2026 Gyrfalcon genomes
+
+rawdata=/bsuhome/sagedale/scratch/Gyrfalcon/Russia_Liu_18/Raw_Reads
+datadir=/bsuhome/sagedale/scratch/Gyrfalcon/Russia_Liu_18/Trimmed_Reads
+
+# --quality 30 will trim ends by quality of at least 30
+
+# Trim files with TrimGalore v. 0.6.6 before alignment - change parameters based on results
+for file in "${rawdata}"/*_r1.fq.gz
+do
+       base=$(basename ${file} _r1.fq.gz)
+       ~/miniforge3/bin/trim_galore --path_to_cutadapt ~/miniforge3/bin/cutadapt --paired --quality 30 ${file} ${rawdata}/${base}_r2.fq.gz -o ${datadir} --basename ${base}
+done
+wait
+echo "done trimming"
