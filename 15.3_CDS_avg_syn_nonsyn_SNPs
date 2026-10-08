@@ -1,0 +1,45 @@
+# !/bin/bash
+# Calculate average synonymous and nonsynonymous SNPs for each gene
+# CDS
+
+module load bcftools/1.14
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/CDS/Annotated_VCFs
+
+# Output file
+out_file="Avg_Syn_Nonsyn_CDS_051626.csv"
+
+# Number of samples in your VCFs
+num_samples=10
+
+# Write CSV header
+echo "Gene,Missense_Count,Missense_Average,Synonymous_Count,Synonymous_Average" > "$out_file"
+
+# Loop through each VCF file
+for vcf in *.vcf; do
+    gene=$(basename "$vcf" .vcf)
+
+    # Total number of VCF records (non-header lines)
+    total_variants=$(grep -vc '^#' "$vcf")
+
+    # Skip empty files
+    if [[ "$total_variants" -eq 0 ]]; then
+        echo "$gene,0,0,0,0" >> "$out_file"
+        continue
+    fi
+
+    # Count number of variant records with 'missense_variant' in ANN field
+    missense_count=$(grep -v "^#" "$vcf" | awk -F'\t' '$8 ~ /missense_variant/' | wc -l)
+
+    # Count number of variant records with 'synonymous_variant' in ANN field
+    synonymous_count=$(grep -v "^#" "$vcf" | awk -F'\t' '$8 ~ /synonymous_variant/' | wc -l)
+
+    # Compute averages per sample
+    missense_avg=$(awk -v count="$missense_count" -v n="$num_samples" 'BEGIN { printf "%.3f", count / n }')
+    synonymous_avg=$(awk -v count="$synonymous_count" -v n="$num_samples" 'BEGIN { printf "%.3f", count / n }')
+
+    # Save to output file
+    echo "$gene,$missense_count,$missense_avg,$synonymous_count,$synonymous_avg" >> "$out_file"
+done
+
+echo "Done. Output written to $out_file"
