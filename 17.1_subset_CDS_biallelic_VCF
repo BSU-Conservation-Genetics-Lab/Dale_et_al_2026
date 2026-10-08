@@ -1,0 +1,31 @@
+# Subset CDS for biallelic VCF
+
+# TLR1A - Single
+bcftools view -r NC_051187.1:99988862-99991264  GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR1A_CDS.vcf.gz
+
+# TLR1B - Single 
+bcftools view -r NC_051187.1:99999964-100001649  GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR1B_CDS.vcf.gz
+
+# TLR2A - Multi (3)
+bcftools view -r NC_051187.1:49472592-49474943,NC_051187.1:49481958-49484343,NC_051187.1:49486194-49486207 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR2A_CDS.vcf.gz
+
+# TLR3 - Mutli (4)
+bcftools view -r NC_051187.1:107790953-107791396,NC_051187.1:107792809-107793000,NC_051187.1:107794610-107796435,NC_051187.1:107797097-107797325 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR3_CDS.vcf.gz
+  
+# TLR4 - Multi (3)
+bcftools view -r NC_051195.1:42603582-42605841,NC_051195.1:42607115-42607281,NC_051195.1:42608063-42608185 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR4_CDS.vcf.gz
+
+# TLR5 - Multi (2)
+bcftools view -r NC_051198.1:26663335-26665924,NC_051198.1:26675435-26675442 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR5_CDS.vcf.gz
+
+# TLR7 - Multi (2)
+bcftools view -r NC_051188.1:94602543-94605683,NC_051188.1:94612234-94612237 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR7_CDS.vcf.gz
+
+# TLR15 - Single
+bcftools view -r NC_051198.1:1548506-1551175 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR15_CDS.vcf.gz
+
+# TLR21 - Single
+bcftools view -r NC_051189.1:103570191-103573229 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR21_CDS.vcf.gz
+
+# TLR2X - Multi (3)
+bcftools view -r NC_051205.1:913749-915719,NC_051205.1:915721-916200,NC_051205.1:917460-917564 GYRF_VarOnly_Biallelic.vcf.gz -Oz -o GYRF_TLR2X_CDS.vcf.gz
