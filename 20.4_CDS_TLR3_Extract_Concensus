@@ -1,0 +1,28 @@
+#!/bin/bash
+# Extract the CDS region from TLR1A from whole genome haplotype 
+
+# Positive STRAND
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/CDS/2_Phased_VCF_Genomes
+
+for genome in *_TLR3_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR3 from $sample"
+
+    {
+        echo ">${sample}_TLR3"
+
+        samtools faidx "$genome" \
+            NC_051187.1:107790953-107791396 \
+            NC_051187.1:107792809-107793000 \
+            NC_051187.1:107794610-107796435 \
+            NC_051187.1:107797097-107797325 \
+        | awk '!/^>/'
+
+   } > "${sample}_CDS.fa"
+
+done
