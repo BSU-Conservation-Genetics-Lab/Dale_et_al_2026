@@ -1,0 +1,23 @@
+#!/bin/bash
+# Create MSA of multi-sequence FASTA with all TLR consensus haplotypes
+
+# Input will be the multi FASTAs for each gene that contain all the samples
+# Output will be the multi FASTAs that have been aligned and should be the same length
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/CDS/3_Multi_Seq_Hap_FASTAs
+# Load MAFFT if needed (uncomment if using module system)
+# module load mafft
+
+# Activate conda environment if you installed mafft via conda
+
+conda init
+source ~/.bashrc
+conda activate mafft-env
+
+for fasta in *.fa; do
+    # Remove .fa and add _aligned.fa
+    output="Aligned/${fasta%.fa}_aligned.fa"
+
+    echo "Aligning $fasta → $output"
+    mafft --auto "$fasta" > "$output"
+done
