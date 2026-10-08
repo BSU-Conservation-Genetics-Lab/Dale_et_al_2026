@@ -1,0 +1,21 @@
+#!/bin/bash
+# Sort (samtools) and Index
+# Liu et al. 2026 Gyrfalcon genomes
+
+# Sort
+
+cd /bsuhome/sagedale/scratch/Gyrfalcon/Russia_Liu_18/BAM_files
+
+for sample in *.bam
+do samtools sort -T ../Sorted_BAM/$sample -o ../Sorted_BAM/$sample $sample
+
+done
+
+#Index BAM files
+
+cd /bsuhome/sagedale/scratch/Gyrfalcon/Russia_Liu_18/Sorted_BAM
+
+for sample in *.bam; do
+  echo "Indexing $sample..."
+  samtools index -b "$sample"
+done
