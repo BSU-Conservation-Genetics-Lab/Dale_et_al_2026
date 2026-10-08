@@ -1,4 +1,0 @@
-#!/bin/bash
-# FastQC on Hu et al. 2022 and Liu et al. 2026 Gyrfalcon genomes
-
-fastqc *.fq.gz
