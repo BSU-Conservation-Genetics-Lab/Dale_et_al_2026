@@ -6,8 +6,6 @@
 
 module load bcftools/1.14
 
-export PATH=~/miniforge3/bin:$PATH
-
 REF="/bsuhome/sagedale/scratch/Gyrfalcon/Full_Run_Feb25/GCF_015220075.1_bFalRus1.pri_genomic_SEQUENTIAL.fna"
 
 VCFDIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/CDS/2_Phased_VCF_Genomes"
