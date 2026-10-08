@@ -1,0 +1,30 @@
+# !/bin/bash
+# Calculate the average number of SNPs for each gene (i.e., has a variant genotype)
+# Version 2
+# LRR
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/LRR
+
+# Output CSV
+OUTPUT="LRR_V2_average_snps_per_gene.csv"
+
+# Write CSV header
+echo "Gene,Average_SNPs_Per_Individual" > "$OUTPUT"
+
+# Loop through each .snp_counts.csv file
+for FILE in *.snp_counts.csv
+do
+    # Skip the header and sum SNP counts
+    total_snps=$(awk -F',' 'NR>1 {sum += $2} END {print sum}' "$FILE")
+
+    # Calculate average (assuming 28 individuals per file) <--------- DONT FORGET TO CHANGE # TO NUMBER OF SAMPLES SAGE!!!!!!!!!!!!!!!
+    avg=$(awk -v sum="$total_snps" 'BEGIN {printf "%.2f", sum / 28}')
+
+    # Extract gene name from filename (strip suffix)
+    gene=${FILE%.snp_counts.csv}
+
+    # Output result
+    echo "${gene},${avg}" >> "$OUTPUT"
+done
+
+echo "Done. Results saved to $OUTPUT"
