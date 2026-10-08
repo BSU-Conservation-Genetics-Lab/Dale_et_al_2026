@@ -1,0 +1,22 @@
+#!/bin/bash
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/CDS/2_Phased_VCF_Genomes
+
+for genome in *_TLR15_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR15 from $sample"
+
+    {
+        echo ">${sample}_TLR15"
+
+        samtools faidx "$genome" \
+            NC_051198.1:1548506-1551175 \
+        | awk '!/^>/'
+
+   } > "${sample}_CDS.fa"
+
+done
