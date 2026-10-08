@@ -1,0 +1,11 @@
+#!/bin/bash
+# Use mpileup to assemble aligned reads and generate bcf
+# At this stage, .bam files from Hu et al. 2022 and Liu et al. 2026 are combined and create a combined bcf
+
+
+### Generate mpileup and BCF 
+# GCF_015220075.1_bFalRus1.pri_genomic_SEQUENTIAL.fna: Gyrfalcon Reference Genome
+bcftools mpileup -E -O b -f /bsuhome/sagedale/scratch/Gyrfalcon/Full_Run_Feb25/GCF_015220075.1_bFalRus1.pri_genomic_SEQUENTIAL.fna -a AD,ADF,DP,ADR,SP -o /bsuhome/sagedale/scratch/Manuscript_Prep/Hu-Liu_GYRF/BCFs/GYR_Hu-Liu.bcf /bsuhome/sagedale/scratch/Manuscript_Prep/Hu-Liu_GYRF/Sorted_BAM/*.bam
+
+# Index BCF
+bcftools index /bsuhome/sagedale/scratch/Manuscript_Prep/Hu-Liu_GYRF/BCFs/GYR_Hu-Liu.bcf
