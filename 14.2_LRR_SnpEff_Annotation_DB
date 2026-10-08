@@ -1,0 +1,32 @@
+# === SETTINGS ===
+SNPEFF_HOME="/bsuhome/sagedale/snpEff"                          # snpEff install directory
+SNPEFF_CONFIG="${SNPEFF_HOME}/snpEff.config"                    # snpEff config file
+SPECIES_NAME="Falco_rusticolus"                                         # Genome name in config
+INPUT_DIR="/bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/LRR"
+OUTPUT_DIR="${INPUT_DIR}/Annotated_VCFs"
+LOG_DIR="${INPUT_DIR}/snpEff_logs"
+
+# Create output and log directories if they don't exist
+mkdir -p "${OUTPUT_DIR}"
+mkdir -p "${LOG_DIR}"
+
+# Loop over all .vcf files in INPUT_DIR
+for INPUT_VCF in "${INPUT_DIR}"/*.vcf.gz; do
+    # Get base filename without path and extension
+    basefile=$(basename "${INPUT_VCF}" .vcf.gz)
+
+    OUTPUT_VCF="${OUTPUT_DIR}/${basefile}_annotated.vcf"
+    LOG_FILE="${LOG_DIR}/${basefile}.log"
+
+    echo "🔍 Running snpEff annotation for ${SPECIES_NAME} on ${INPUT_VCF}..."
+
+    java -Xmx4g -jar "${SNPEFF_HOME}/snpEff.jar" -c "${SNPEFF_CONFIG}" -v "${SPECIES_NAME}" "${INPUT_VCF}" > "${OUTPUT_VCF}" 2> "${LOG_FILE}"
+
+    if [[ $? -eq 0 ]]; then
+        echo "✅ Annotation complete for ${basefile}!"
+        echo "Output file: ${OUTPUT_VCF}"
+        echo "Log file: ${LOG_FILE}"
+    else
+        echo "❌ snpEff annotation failed for ${basefile}. See log file: ${LOG_FILE}"
+    fi
+done
