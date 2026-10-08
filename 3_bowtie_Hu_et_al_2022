@@ -1,0 +1,44 @@
+#!/bin/bash
+# Generated BAM files with Bowtie2
+# Hu et al. 2022 Gyrfalcon genomes Generated BAM files (Bowtie2)
+
+genome=/bsuhome/sgalla/scratch/Gyrfalcon/Genome/GCF_015220075.1
+datadir=/bsuhome/sgalla/scratch/Gyrfalcon/Resequenced_Genomes/trimmed_reads
+bamfiles=/bsuhome/sgalla/scratch/Gyrfalcon/Resequenced_Genomes/BAM_Files
+
+#Index Genome
+bowtie2-build ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna
+
+#Gunzip files
+#gunzip ${datadir}/CRR575714_val_1.fq.gz
+#gunzip ${datadir}/CRR575714_val_2.fq.gz
+#gunzip ${datadir}/CRR575715_val_1.fq.gz
+#gunzip ${datadir}/CRR575715_val_2.fq.gz
+#gunzip ${datadir}/CRR575716_val_1.fq.gz
+#gunzip ${datadir}/CRR575716_val_2.fq.gz
+#gunzip ${datadir}/CRR575717_val_1.fq.gz
+#gunzip ${datadir}/CRR575717_val_2.fq.gz
+#gunzip ${datadir}/CRR575718_val_1.fq.gz
+#gunzip ${datadir}/CRR575718_val_2.fq.gz
+#gunzip ${datadir}/CRR575719_val_1.fq.gz
+#gunzip ${datadir}/CRR575719_val_2.fq.gz
+#gunzip ${datadir}/CRR575720_val_1.fq.gz
+#gunzip ${datadir}/CRR575720_val_2.fq.gz
+#gunzip ${datadir}/CRR575721_val_1.fq.gz
+#gunzip ${datadir}/CRR575721_val_2.fq.gz
+#gunzip ${datadir}/CRR575722_val_1.fq.gz
+#gunzip ${datadir}/CRR575722_val_2.fq.gz
+#gunzip ${datadir}/CRR575723_val_1.fq.gz
+#gunzip ${datadir}/CRR575723_val_2.fq.gz
+
+#Map Reads
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575714_val_1.fq -2 ${datadir}/CRR575714_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575714.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575715_val_1.fq -2 ${datadir}/CRR575715_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575715.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575716_val_1.fq -2 ${datadir}/CRR575716_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575716.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575717_val_1.fq -2 ${datadir}/CRR575717_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575717.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575718_val_1.fq -2 ${datadir}/CRR575718_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575718.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575719_val_1.fq -2 ${datadir}/CRR575719_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575719.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575720_val_1.fq -2 ${datadir}/CRR575720_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575720.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575721_val_1.fq -2 ${datadir}/CRR575721_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575721.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575722_val_1.fq -2 ${datadir}/CRR575722_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575722.bam
+#bowtie2 -p 32 -x ${genome}/GCF_015220075.1_bFalRus1.pri_genomic.fna -1 ${datadir}/CRR575723_val_1.fq -2 ${datadir}/CRR575723_val_2.fq -X 600 -I 0 | samtools view -@ 4 -bS - > ${bamfiles}/CRR575723.bam
