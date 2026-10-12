@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Global PEFA (n=81)
+# Filter for depth (DP) > 5
+
+vcftools --gzvcf PEFA_81.vcf.gz \
+    --minDP 5 \
+    --recode --recode-INFO-all \
+    --stdout | bgzip > PEFA_81_DP5.vcf.gz
+    
+bcftools index PEFA_81_DP5.vcf.gz
