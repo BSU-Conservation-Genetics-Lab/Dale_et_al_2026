@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Global PEFA (n=81)
+# Calculate sample missingness
+
+# Samples with F_Missingness > 0.1 will be removed.
+# Output file = PEFA_81_sample_missing
+
+vcftools --gzvcf PEFA_81.vcf.gz --missing-indv --out PEFA_81_sample_missing
