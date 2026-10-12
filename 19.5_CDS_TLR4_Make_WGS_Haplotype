@@ -1,8 +1,6 @@
 #!/bin/bash
-# Phase biallelic TLR sequences 
-# CDS
-
 # Make whole genome haplotype sequence where TLR4 phased variants are applied 
+# CDS
 
 module load bcftools/1.14
 
