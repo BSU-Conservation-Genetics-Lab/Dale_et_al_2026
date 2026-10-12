@@ -1,0 +1,33 @@
+#!/bin/bash
+# Extract the LRR region from TLR15 whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR15_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR15 from $sample"
+
+    {
+        echo ">${sample}_TLR15"
+
+        samtools faidx "$genome" \
+           NC_051198.1:1548716-1548781 \
+           NC_051198.1:1548788-1548853 \
+           NC_051198.1:1549430-1549495 \
+           NC_051198.1:1549496-1549561 \
+           NC_051198.1:1549799-1549864 \
+           NC_051198.1:1549928-1549993 \
+           NC_051198.1:1549994-1550059 \
+           NC_051198.1:1550060-1550125 \
+           NC_051198.1:1550126-1550191 \
+           NC_051198.1:1550198-1550263 \
+           NC_051198.1:1550264-1550329 \
+        | awk '!/^>/'
+
+   } > "${sample}_LRR.fa"
+
+done
