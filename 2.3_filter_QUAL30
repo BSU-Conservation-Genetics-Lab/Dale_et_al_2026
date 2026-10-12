@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Global PEFA (n=81)
+# Filter for QUAL (Phred) of 30
+
+vcftools --gzvcf PEFA_81_DP5_MaxMis0.1.vcf.gz \
+    --minQ 30 \
+    --recode --recode-INFO-all \
+    --stdout | bgzip > PEFA_81_DP5_MaxMis0.1_Qual30.vcf.gz
+    
+bcftools index PEFA_81_DP5_MaxMis0.1_Qual30.vcf.gz
