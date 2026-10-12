@@ -1,0 +1,27 @@
+#!/bin/bash
+# Create multi-sequence LRR FASTA with all TLR consensus haplotypes
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/LRR/2_Phased_VCF_Genomes
+
+# List of gene identifiers used in filenames
+genes=("TLR1A" "TLR1B" "TLR2A" "TLR3" "TLR4" "TLR5" "TLR7" "TLR15" "TLR21" "TLR2X")
+
+
+for gene in "${genes[@]}"; do
+    multifasta="${gene}_LRR_all_samples.fa"
+    echo "Creating multi-FASTA: $multifasta"
+    > "$multifasta"
+
+    for fasta in *_${gene}_hap*_LRR.fa; do
+        [[ -f "$fasta" ]] || continue
+
+        echo "  Adding $fasta"
+
+        sample_name=$(basename "$fasta" .fa)
+
+        awk -v name="$sample_name" '
+            /^>/ {print ">" name; next}
+            {print}
+        ' "$fasta" >> "$multifasta"
+    done
+done
