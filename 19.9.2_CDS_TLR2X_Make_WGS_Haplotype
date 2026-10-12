@@ -1,5 +1,5 @@
 #!/bin/bash
-# Phase biallelic TLR sequences 
+# Make whole genome haplotype sequence where TLR2X phased variants are applied 
 # CDS
 
 module load bcftools/1.14
