@@ -1,5 +1,5 @@
 #!/bin/bash
-# Extract the LRR region from TLR1A whole genome haplotype 
+# Extract the LRR region from TLR1B whole genome haplotype 
 
 export PATH=~/miniforge3/bin:$PATH
 
