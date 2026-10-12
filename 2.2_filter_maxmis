@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Global PEFA (n=81)
+# Filter for max missingness of 0.9
+# sites with missingness GREATER than 0.1 were removed
+
+vcftools --gzvcf PEFA_81_DP5.vcf.gz \
+         --max-missing 0.9 \
+         --recode --recode-INFO-all \
+         --stdout | bgzip > PEFA_81_DP5_MaxMis0.1.vcf.gz
+    
+bcftools index PEFA_81_DP5_MaxMis0.1.vcf.gz
