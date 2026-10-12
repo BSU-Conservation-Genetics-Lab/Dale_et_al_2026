@@ -1,0 +1,42 @@
+#!/bin/bash
+# Extract the LRR region from TLR3 whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR3_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR3 from $sample"
+
+    {
+        echo ">${sample}_TLR3"
+
+        samtools faidx "$genome" \
+            NC_051187.1:107791112-107791177 \
+            NC_051187.1:107791184-107791249 \
+            NC_051187.1:107791256-107791321 \
+            NC_051187.1:107791328-107791390 \
+            NC_051187.1:107792809-107792871 \
+            NC_051187.1:107792881-107792946 \
+            NC_051187.1:107792959-107793000 \
+            NC_051187.1:107794610-107794633 \
+            NC_051187.1:107794799-107794864 \
+            NC_051187.1:107794871-107794933 \
+            NC_051187.1:107794940-107795005 \
+            NC_051187.1:107795012-107795077 \
+            NC_051187.1:107795084-107795146 \
+            NC_051187.1:107795168-107795233 \
+            NC_051187.1:107795240-107795308 \
+            NC_051187.1:107795465-107795530 \
+            NC_051187.1:107795537-107795602 \
+            NC_051187.1:107795633-107795698 \
+            NC_051187.1:107795705-107795770 \
+            NC_051187.1:107795777-107795842 \
+        | awk '!/^>/'
+
+   } > "${sample}_LRR.fa"
+
+done
