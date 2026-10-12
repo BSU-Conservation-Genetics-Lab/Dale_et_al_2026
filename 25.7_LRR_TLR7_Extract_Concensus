@@ -1,0 +1,42 @@
+#!/bin/bash
+# Extract the LRR region from TLR7 whole genome haplotype 
+
+export PATH=~/miniforge3/bin:$PATH
+
+cd /bsuhome/sagedale/scratch/Manuscript_Prep/Var_Only/Hu-Liu_GYRF/Haplotype_072426/LRR/2_Phased_VCF_Genomes
+
+for genome in *_TLR7_hap*_genome.fa; do
+
+    sample=$(basename "$genome" _genome.fa)
+
+    echo "Extracting TLR7 from $sample"
+
+    {
+        echo ">${sample}_TLR7"
+
+        samtools faidx "$genome" \
+            NC_051188.1:94605438-94605503 \
+            NC_051188.1:94605249-94605317 \
+            NC_051188.1:94605021-94605086 \
+            NC_051188.1:94604958-94605020 \
+            NC_051188.1:94604919-94604951 \
+            NC_051188.1:94604766-94604831 \
+            NC_051188.1:94604691-94604759 \
+            NC_051188.1:94604613-94604681 \
+            NC_051188.1:94604448-94604510 \
+            NC_051188.1:94604373-94604438 \
+            NC_051188.1:94604148-94604213 \
+            NC_051188.1:94604076-94604141 \
+            NC_051188.1:94604001-94604066 \
+            NC_051188.1:94603929-94603994 \
+            NC_051188.1:94603770-94603835 \
+            NC_051188.1:94603677-94603742 \
+            NC_051188.1:94603596-94603667 \
+            NC_051188.1:94603527-94603595 \
+            NC_051188.1:94603461-94603523 \
+            NC_051188.1:94603386-94603451 \
+        | awk '!/^>/'
+
+    } | seqtk seq -r - > "${sample}_LRR.fa"
+
+done
